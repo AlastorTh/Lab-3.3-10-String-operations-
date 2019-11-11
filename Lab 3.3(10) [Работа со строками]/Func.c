@@ -1,71 +1,79 @@
 #include "Header.h"
 
-int MaxString(char *filename) // длина макс. строки
+int MaxString(char* filename) // длина макс. строки
 {
-	FILE* in = fopen("Text.txt", "rt");
+	FILE* in = fopen("Text.txt", "r");
+	FILE* temp = fopen("Temp.txt", "w");
 	char s[256];
 	int i;
 	int j;
 	int k;
 	int index;
 	int cur_len;
-	if (in == NULL) 
+	if (in == NULL)
 	{
 		printf("Ошибка чтения входного файла!");
 		return -1;
 	}
 	int max_loc = 0;
 	int max_cur = 0;
-	while (fgets(s, 256, in) != NULL) 
+	while (fgets(s, 256, in) != NULL)
 	{
 		max_cur = strlen(s);
-		if (s[strlen(s)-1] == '\n') 
+		if (s[strlen(s) - 1] == '\n')
 		{
 			max_cur -= 1;
 		}
-		if (max_cur > max_loc) 
+		if (max_cur > max_loc)
 		{
 			max_loc = max_cur;
 		}
-		
-		for (i = 0; i < strlen(s); i++) 
+
+		for (i = 0; i < strlen(s); i++)
 		{
-			if (s[i] == '\t') 
+			if (s[i] == '\t')
 			{
 				cur_len = strlen(s);
-				for (j = i; j <= cur_len; j++) 
+				for (j = cur_len + 4; j > i + 4; j--)
 				{
-					s[j + 5] = s[j];
-				}
-				
-				for (i; i<i+5; i++) 
-				{
-					s[i] = ' ';
+
+					s[j] = s[j - 4];
+				//	printf("happens!");
 				}
 
+				for (int k = i; k < i + 5; k++)
+				{
+					s[k] = ' ';
+				//	printf("HAPPENS!");
+				}
+				s[cur_len + 5] = '\0';
 			}
 		}
+
+		fputs(s, temp);
 	}
-	
-	
+
+
+
 	fclose(in);
+	fclose(temp);
 	return max_loc;
 
 }
 
-int SpaceCreated(char* filename,int* len_ptr) 
+int SpaceCreated(char* filename, int* len_ptr)
 {
-	FILE* in = fopen("Text.txt", "rt");
+	FILE* temp = fopen("Temp.txt", "rt");
 	FILE* out = fopen("Output.txt", "wt");
 	char s[256] = { 0 };
 	int i;
-	int cur_len=0;
+	int cur_len = 0;
 	int delta = 0;
 	int spaceLen;
 	char spaceArr[256] = { 0 };
 	char ToFile[256] = { 0 };
-	
-	if (in == NULL) 
+
+	if (temp == NULL)
 	{
 		printf("Ошибка чтения входного файла!");
 		return -2;
@@ -78,14 +86,14 @@ int SpaceCreated(char* filename,int* len_ptr)
 	}
 
 	scanf("%d", &delta);
-	if (delta < 0) 
+	if (delta < 0)
 	{
 		printf("Delta below zero");
 		return -5;
 	}
-	
 
-	while (fgets(s, 256, in) != NULL) 
+
+	while (fgets(s, 256, temp) != NULL)
 	{
 		cur_len = strlen(s);
 		if (s[strlen(s) - 1] == '\n')
@@ -93,17 +101,18 @@ int SpaceCreated(char* filename,int* len_ptr)
 			cur_len -= 1;
 		}
 
-		spaceLen = ((*len_ptr-cur_len)/2)+delta;
-		
-		for (i = 0; i < spaceLen; i++) 
+		spaceLen = ((*len_ptr - cur_len) / 2) + delta;
+
+		for (i = 0; i < spaceLen; i++)
 		{
 			spaceArr[i] = ' ';
 		}
 		spaceArr[spaceLen] = '\0';
 		strcpy(ToFile, spaceArr);
 		strcat(ToFile, s);
-		printf("%s", ToFile);
 		fputs(ToFile, out);
-
+		
 	}
+	fclose(temp);
+	fclose(out);
 }
