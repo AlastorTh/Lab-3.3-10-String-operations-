@@ -1,6 +1,6 @@
 #include "Header.h"
 
-int MaxString(char* filename) // длина макс. строки
+int MaxString(char* filename) // РґР»РёРЅР° РјР°РєСЃ. СЃС‚СЂРѕРєРё
 {
 	FILE* in = fopen("Text.txt", "r");
 	FILE* temp = fopen("Temp.txt", "w");
@@ -12,7 +12,7 @@ int MaxString(char* filename) // длина макс. строки
 	int cur_len;
 	if (in == NULL)
 	{
-		printf("Ошибка чтения входного файла!");
+		printf("РћС€РёР±РєР° С‡С‚РµРЅРёСЏ РІС…РѕРґРЅРѕРіРѕ С„Р°Р№Р»Р°!");
 		return -1;
 	}
 	int max_loc = 0;
@@ -38,13 +38,12 @@ int MaxString(char* filename) // длина макс. строки
 				{
 
 					s[j] = s[j - 4];
-				//	printf("happens!");
+				
 				}
 
 				for (int k = i; k < i + 5; k++)
 				{
 					s[k] = ' ';
-				//	printf("HAPPENS!");
 				}
 				s[cur_len + 5] = '\0';
 			}
@@ -75,13 +74,13 @@ int SpaceCreated(char* filename, int* len_ptr)
 
 	if (temp == NULL)
 	{
-		printf("Ошибка чтения входного файла!");
+		printf("РћС€РёР±РєР° С‡С‚РµРЅРёСЏ РІС…РѕРґРЅРѕРіРѕ С„Р°Р№Р»Р°!");
 		return -2;
 	}
 
 	if (out == NULL)
 	{
-		printf("Ошибка чтения входного файла!");
+		printf("РћС€РёР±РєР° С‡С‚РµРЅРёСЏ РІС…РѕРґРЅРѕРіРѕ С„Р°Р№Р»Р°!");
 		return -3;
 	}
 

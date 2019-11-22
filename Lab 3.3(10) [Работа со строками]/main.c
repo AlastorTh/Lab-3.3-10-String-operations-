@@ -8,7 +8,7 @@ int main()
 	
 	int maxLen;
 	int* len_ptr = &maxLen;
-	maxLen=MaxString("Text.txt");   // функция взятия макс. строки
+	maxLen=MaxString("Text.txt");   // С„СѓРЅРєС†РёСЏ РІР·СЏС‚РёСЏ РјР°РєСЃ. СЃС‚СЂРѕРєРё
 
 	
 	SpaceCreated("Temp.txt", len_ptr);
